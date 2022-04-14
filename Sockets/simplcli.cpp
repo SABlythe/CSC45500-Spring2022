@@ -1,6 +1,6 @@
 // FILE:   simple.cpp
 // AUTHOR: Dr. S. A. Blythe
-// DATE:   8/5/07 - 8/7/07
+// DATE:   3/2022
 //
 // A simple client program that utilizes Unix sockets to connect to a
 // simple server. Such a server simply responds to a connection when
@@ -10,6 +10,7 @@
 #include <netdb.h>
 #include <unistd.h>
 
+#include <cstdlib>
 #include <iostream>
 using namespace std;
 
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
   if (argc!=2)
     {
       cout << "Usage: " << argv[0] << " <TOD-server>" << endl;
-      exit (USAGE_ERROR);
+      return USAGE_ERROR;
     }
   
   // invoke client code
@@ -59,7 +60,7 @@ int do_client(char *server)
   if(!serverEntry)
     {
       cout << "Failed gethostbyname(), server=" << server << endl;
-      exit(HOSTNAME_ERROR);
+      return HOSTNAME_ERROR;
     }
 
   //create the socket we intend on using ...
@@ -75,7 +76,7 @@ int do_client(char *server)
   if(s < 0)
     {
       cout << "Failed socket()" << endl;
-      exit(CREATE_ERROR);
+      return CREATE_ERROR;
     }
 
   //Fill in the sockaddr_in struct, which internal represents an
@@ -92,7 +93,7 @@ int do_client(char *server)
   if(rVal<0)
     {
       cout << "Failed connect()" << endl;
-      exit(SOCK_ERROR);
+      return SOCK_ERROR;
     }
 
   // at this point, we have an active connection. By protocol, the
@@ -115,7 +116,7 @@ int do_client(char *server)
   if (n<0)
     {
       cout << "read() error" << endl;
-      exit(READ_ERROR);
+      return READ_ERROR;
     }
 
   // close the socket

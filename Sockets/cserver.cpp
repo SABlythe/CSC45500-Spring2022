@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
   if (argc!=2)
     {
       cout << "Usage: " << argv[0] << " <port number>" << endl;
-      exit (USAGE_ERROR);
+      return USAGE_ERROR;
     }
 
   // invoke server code
